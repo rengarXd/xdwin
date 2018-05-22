@@ -6,7 +6,7 @@
 //   lockY: object;
 // }
 namespace xdwin {
-  class LayxResize {
+  class XdwinResize {
 
     isResizing: any;
     isFirstResizing: any;
