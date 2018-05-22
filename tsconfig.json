@@ -1,0 +1,19 @@
+{
+    "files": [
+        "src/main.ts",
+        "src/greet.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ],
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "declaration": true,
+        "target": "es2015",
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "typeRoots" : ["./typings"]
+    }
+}
