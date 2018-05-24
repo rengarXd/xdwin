@@ -1,178 +1,166 @@
-namespace xdwin {
-  export const version = '2.0.5';
-  export const defaults = {
-    id: '',// 窗口唯一id
-    icon: true, // 窗口图标，false为不启用，支持html
-    title: '',  // 标题，支持html
-    width: 800, // 初始化宽度，支持百分比 '100%'
-    height: 600,    // 初始化高度，支持百分比 '100%'
-    minWidth: 100,  // 最小宽度，支持百分比 '100%'
-    minHeight: 100, // 最小高度，支持百分比 '100%'
-    position: 'ct', // 初始化位置，支持'ct', 'lt', 'rt', 'lb', 'rb', 'lc', 'tc', 'rc', 'bc'，以及 [top,left]数组，同时也数字也支持混合写法，如：[100,'tc']
-    control: true, // 是否显示控制栏
-    style: '',   // style样式，
-    controlStyle: '', // 控制栏样式
-    bgColor: "#fff",  // 窗口颜色：默认透明
-    shadow: true,   // 是否显示阴影
-    border: "1px solid #3baced", // 边框，false不启用边框
-    type: 'html',   // 窗口类型，支持：html,url,group
-    frames: [], // 子框架
-    frameIndex: 0,  // 默认显示自框架索引
-    content: '', // type为html有效，支持字符串和element对象
-    url: '', // type为url有效
-    useFrameTitle: false, // 是否自动获取iframe页面标题填充窗口标题
-    opacity: 1, // 透明度
-    shadable: false, // 是否启用窗口阻隔
-    loaddingText: '内容正在加载中，请稍后...', // 内容加载文本内容，支持html
-    stickMenu: false,   // 是否显示置顶按钮
-    stickable: true, // 是否允许置顶操作
-    minMenu: true,  // 是否显示最小化按钮
-    minable: true, // 是否允许最小化操作
-    maxMenu: true,  // 是否显示最大化按钮
-    maxable: true, // 是否允许最大化操作
-    closeMenu: true,    // 是否显示关闭按钮
-    closable: true, // 是否允许关闭操作
-    restorable: true,   // 是否允许恢复操作
-    resizable: true, // 是否显示拖曳操作
-    autodestroy: false,  // 自动关闭，支持数值类型毫秒
-    autodestroyText: '<div style="padding: 0 8px; ">此窗口将在 <strong>{second}</strong> 秒内自动关闭.</div>', // 是否显示关闭倒计时文本
-    // 拖曳方向控制
-    resizeLimit: {
-      t: false, // 是否限制上边拖曳大小，false不限制
-      r: false, // 是否限制右边拖曳大小，false不限制
-      b: false, // 是否限制下边拖曳大小，false不限制
-      l: false, // 是否限制左边拖曳大小，false不限制
-      lt: false, // 是否限制左上边拖曳大小，false不限制
-      rt: false, // 是否限制右上边拖曳大小，false不限制
-      lb: false, // 是否限制左下边拖曳大小，false不限制
-      rb: false // 是否限制右下边拖曳大小，false不限制
-    },
-    buttons: [],    // 生成状态栏按钮，必须设置statusBar=true
-    isPrompt: false,    // 是否输入窗口，此窗口比较特殊，单独设置参数
-    movable: true,  // 是否允许拖动窗口
-    moveLimit: {
-      vertical: false, // 是否禁止垂直拖动，false不禁止
-      horizontal: false, // 是否禁止水平拖动，false不禁止
-      leftOut: true, // 是否允许左边拖出，true允许
-      rightOut: true, // 是否允许右边拖出，true允许
-      topOut: true, // 是否允许上边拖出，true允许，此设置不管是false还是true，窗口都不能拖出窗体
-      bottomOut: true, // 是否允许下边拖出，true允许
-    },
-    focusable: true, // 是否启用iframe页面点击置顶，只支持非跨域iframe
-    alwaysOnTop: false, // 是否置顶
-    allowControlDbclick: true,    // 允许控制栏双击切换窗口大小
-    statusBar: false, // 是否显示状态栏，支持html，支持字符串和element对象
-    statusBarStyle: '',// 状态栏样式
-    // 事件
-    event: {
-      // 加载事件
-      onload: {
-        // 加载之前，return false 不执行
-        before: function (layxWindow: any, winform: any) {
-        },
-        // 加载之后
-        after: function (layxWindow: any, winform: any) {
-        }
-      },
-      // 最小化事件
-      onmin: {
-        // 最小化之前，return false 不执行
-        before: function (layxWindow: any, winform: any) {
-        },
-        // 最小化之后
-        after: function (layxWindow: any, winform: any) {
-        }
-      },
-      // 最大化事件
-      onmax: {
-        // 最大化之前，return false 不执行
-        before: function (layxWindow: any, winform: any) {
-        },
-        // 最大化之后
-        after: function (layxWindow: any, winform: any) {
-        }
-      },
-      // 恢复事件
-      onrestore: {
-        // 恢复之前，return false 不执行
-        before: function (layxWindow: any, winform: any) {
-        },
-        // 恢复之后
-        after: function (layxWindow: any, winform: any) {
-        }
-      },
-      // 关闭事件
-      ondestroy: {
-        // 关闭之前，return false 不执行
-        before: function (layxWindow: any, winform: any) {
-        },
-        // 关闭之后
-        after: function () {
-        }
-      },
-      // 移动事件
-      onmove: {
-        // 移动之前，return false 不执行
-        before: function (layxWindow: any, winform: any) {
-        },
-        // 移动中
-        progress: function (layxWindow: any, winform: any) {
-        },
-        // 移动之后
-        after: function (layxWindow: any, winform: any) {
-        }
-      },
-      // 拖曳事件
-      onresize: {
-        // 拖曳之前，return false 不执行
-        before: function (layxWindow: any, winform: any) {
-        },
-        // 拖曳中
-        progress: function (layxWindow: any, winform: any) {
-        },
-        // 拖曳之后
-        after: function (layxWindow: any, winform) {
-        }
-      }
-    }
-  };
-  // 按钮配置参数
-  export const defaultButtons = {
-    label: '确定',
-    callback(id: any) {
-    }
-  };
-  // 默认子frame参数
-  export const defaultFrames = {
-    id: '',
-    title: '',
-    type: 'html',
-    url: '',
-    content: '',
-    useFrameTitle: false,
-  };
-  export let xdmain = {
 
-    // 默认子frame参数
-    defaultFrames: {
-      id: '',
-      title: '',
-      type: 'html',
-      url: '',
-      content: '',
-      useFrameTitle: false,
-    },
-    // 普通层级别
-    zIndex: 10000000,
-    // 窗口集合
-    windows: {},
-    // 置顶层级别
-    stickZIndex: 20000000,
-    // 创建窗口骨架
-    create: function (options) {
+/// <reference path="./main.d.ts" />
+import conf from "./config"
+import * as Utils from "./Utils"
+namespace xdwin {
+  export class XdMain extends conf {
+    // private defaults = conf.defaults;
+    // public win = window;
+    // private windows = conf.windows;
+    // private stickZIndex = conf.stickZIndex;
+    // private zIndex = conf.zIndex;
+    // private defaultFrames: DefaultFrames = conf.defaultFrames
+    constructor() {
+      super()
+      // let that = this
+      // Object.defineProperty(that.win, 'xdwinui', {
+      //   // 打开窗口
+      //   open(options: any) {
+      //     let winform = that.create(options);
+      //     return winform;
+      //   },
+      //   // 打开文本窗口快捷方法
+      //   html(id: string, title: string, content: string, options: any) {
+      //     let winform = that.create(xdwin.Utils.layxDeepClone({}, {
+      //       id: id,
+      //       title: title,
+      //       type: 'html',
+      //       content: content
+      //     }, options || {}));
+      //     return winform;
+      //   },
+      //   // 打开网页窗口快捷方法
+      //   iframe(id: string, title: string, url: string, options: any) {
+      //     let winform = that.create(xdwin.Utils.layxDeepClone({}, {
+      //       id: id,
+      //       title: title,
+      //       type: 'url',
+      //       url: url
+      //     }, options || {}));
+      //     return winform;
+      //   },
+      //   // 打开窗口组快捷方法
+      //   group(id, frames, frameIndex, options) {
+      //     let winform = this.create(xdwin.Utils.layxDeepClone({}, {
+      //       id: id,
+      //       type: 'group',
+      //       frames: frames,
+      //       frameIndex: frameIndex,
+      //     }, options || {}));
+      //     return winform;
+      //   },
+      //   // 获取窗口列表
+      //   windows() {
+      //     return this.windows;
+      //   },
+      //   // 获取当前窗口对象
+      //   getWindow(id) {
+      //     return this.windows[id];
+      //   },
+      //   // 关闭窗口
+      //   destroy(id) {
+      //     this.destroy(id);
+      //   },
+      //   // 窗口最大化
+      //   max(id) {
+      //     this.max(id);
+      //   },
+      //   // 设置标题
+      //   setTitle(id, title, useFrameTitle) {
+      //     this.setTitle(id, title, useFrameTitle);
+      //   },
+      //   // 闪烁窗口
+      //   flicker(id) {
+      //     this.flicker(id);
+      //   },
+      //   // 恢复窗口
+      //   restore(id) {
+      //     this.restore(id);
+      //   },
+      //   // 更新层级别
+      //   updateZIndex(id) {
+      //     this.updateZIndex(id);
+      //   },
+      //   // 更新最小化布局
+      //   updateMinLayout() {
+      //     this.updateMinLayout();
+      //   },
+      //   // 置顶切换
+      //   stickToggle(id) {
+      //     this.stickToggle(id);
+      //   },
+      //   // 设置窗口位置
+      //   setPosition(id, position) {
+      //     this.setPosition(id, position);
+      //   },
+      //   // 获取子框架window对象
+      //   getChildContext(id) {
+      //     return this.getChildContext(id);
+      //   },
+      //   // 获取父框架window对象
+      //   getParentContext(id) {
+      //     return this.getParentContext(id);
+      //   },
+      //   // 设置窗口内容，文本窗口有效
+      //   setContent(id, content) {
+      //     this.setContent(id, content);
+      //   },
+      //   // 设置iframe地址，iframe窗口有效
+      //   setUrl(id, url) {
+      //     this.setUrl(id, url);
+      //   },
+      //   // 设置窗口组内容
+      //   setGroupContent(id, frameId, content) {
+      //     this.setGroupContent(id, frameId, content);
+      //   },
+      //   // 设置窗口组标题
+      //   setGroupTitle(id, frameId, title, useFrameTitle) {
+      //     this.setGroupTitle(id, frameId, title, useFrameTitle);
+      //   },
+      //   // 设置窗口组Url
+      //   setGroupUrl(id, frameId, url) {
+      //     this.setGroupUrl(id, frameId, url);
+      //   },
+      //   // 设置窗口组索引
+      //   setGroupIndex(id, frameId) {
+      //     this.setGroupIndex(id, frameId);
+      //   },
+      //   // 关闭所有窗口
+      //   destroyAll() {
+      //     this.destroyAll();
+      //   },
+      //   // ================ 内置组件
+      //   // 消息框
+      //   msg(msg, options) {
+      //     return this.msg(msg, options);
+      //   },
+      //   // 提示框
+      //   alert(title, msg, yes, options) {
+      //     return this.alert(title, msg, yes, options);
+      //   },
+      //   // 询问框
+      //   confirm(title, msg, yes, options) {
+      //     return this.confirm(title, msg, yes, options);
+      //   },
+      //   // 获取prompt输入框textarea对象
+      //   getPromptTextArea(id) {
+      //     return this.getPromptTextArea(id);
+      //   },
+      //   // 输入框
+      //   prompt(title, msg, yes, options) {
+      //     return this.prompt(title, msg, yes, options);
+      //   },
+      //   // 加载框
+      //   load(id, msg, options) {
+      //     return this.load(id, msg, options);
+      //   }
+      // })
+    }
+
+    create(options: any) {
       let that = this,
-        config = layxDeepClone({}, that.defaults, options || {}),
-        winform = {};
+        config = Utils.layxDeepClone({}, that.defaults, options || {}),
+        winform: WinForm;
       if (!config.id) {
         console.error("窗口id不能为空且唯一");
         return;
@@ -190,83 +178,82 @@ namespace xdwin {
 
       // 创建窗口阻隔
       if (config.shadable === true) {
-        let layxShade = document.createElement("div");
-        layxShade.setAttribute("id", "layx-" + config.id + "-shade");
-        layxShade.classList.add("layx-shade");
+        let layxShade: any = document.createElement("div");
+        layxShade.setAttribute("id", "xdwin-" + config.id + "-shade");
+        layxShade.classList.add("xdwin-shade");
         layxShade.style.zIndex = config.alwaysOnTop === true ? (++that.stickZIndex) : (++that.zIndex);
         document.body.appendChild(layxShade);
-        layxShade.onclick = function (e) {
+        layxShade.onclick = (e: any) => {
           e = e || window.event;
           that.flicker(config.id);
           e.stopPropagation();
         }
       }
+
       // 动态插入样式
       if (config.style) {
-        let style = document.getElementById("layx-style");
+        let style: any = document.getElementById("xdwin-style");
         if (style) {
           style.innerHTML += config.style;
         } else {
           style = document.createElement("style");
-          style.setAttribute("id", "layx-style");
+          style.setAttribute("id", "xdwin-style");
           style.type = "text/css";
           style.innerHTML = config.style;
           document.getElementsByTagName("HEAD").item(0).appendChild(style);
         }
       }
-
-      // 创建layx-window
-      let layxWindow = document.createElement("div");
-      layxWindow.setAttribute("id", "layx-" + config.id);
-      layxWindow.classList.add("layx-window");
-      layxWindow.classList.add("layx-flexbox");
+      // 创建xdwin-window
+      let xdWindow: any = document.createElement("div");
+      xdWindow.setAttribute("id", "xdwin-" + config.id);
+      xdWindow.classList.add("xdwin-window");
+      xdWindow.classList.add("xdwin-flexbox");
       if (config.shadow === true) {
-        layxWindow.style.setProperty("box-shadow", "1px 1px 24px rgba(0, 0, 0, .3)");
-        layxWindow.style.setProperty("-moz-box-shadow", "1px 1px 24px rgba(0, 0, 0, .3)");
-        layxWindow.style.setProperty("-webkit-box-shadow", "1px 1px 24px rgba(0, 0, 0, .3)");
+        xdWindow.style.setProperty("box-shadow", "1px 1px 24px rgba(0, 0, 0, .3)");
+        xdWindow.style.setProperty("-moz-box-shadow", "1px 1px 24px rgba(0, 0, 0, .3)");
+        xdWindow.style.setProperty("-webkit-box-shadow", "1px 1px 24px rgba(0, 0, 0, .3)");
       }
-
       // 转换最小化参数
-      let _minWidth = Utils.compileLayxWidthOrHeight("width", config.minWidth, that.defaults.minWidth);
-      let _minHeight = Utils.compileLayxWidthOrHeight("height", config.minHeight, that.defaults.minHeight);
+      let _minWidth = Utils.Util.compileLayxWidthOrHeight("width", config.minWidth, that.defaults.minWidth);
+      let _minHeight = Utils.Util.compileLayxWidthOrHeight("height", config.minHeight, that.defaults.minHeight);
 
-      let _width = Utils.compileLayxWidthOrHeight("width", config.width, that.defaults.width);
+      let _width = Utils.Util.compileLayxWidthOrHeight("width", config.width, that.defaults.width);
       _width = Math.max(_width, _minWidth);
 
-      let _height = Utils.compileLayxWidthOrHeight("height", config.height, that.defaults.height);
+      let _height = Utils.Util.compileLayxWidthOrHeight("height", config.height, that.defaults.height);
       _height = Math.max(_height, _minHeight);
 
-      let _position = Utils.compileLayxPosition(_width, _height, config.position);
+      let _position = Utils.Util.compileLayxPosition(_width, _height, config.position);
 
-      layxWindow.style.zIndex = config.alwaysOnTop === true ? (++that.stickZIndex) : (++that.zIndex);
-      layxWindow.style.width = _width + "px";
-      layxWindow.style.height = _height + "px";
-      layxWindow.style.minWidth = _minWidth + "px";
-      layxWindow.style.minHeight = _minHeight + "px";
-      layxWindow.style.top = _position.top + "px";
-      layxWindow.style.left = _position.left + "px";
+      xdWindow.style.zIndex = config.alwaysOnTop === true ? (++that.stickZIndex) : (++that.zIndex);
+      xdWindow.style.width = _width + "px";
+      xdWindow.style.height = _height + "px";
+      xdWindow.style.minWidth = _minWidth + "px";
+      xdWindow.style.minHeight = _minHeight + "px";
+      xdWindow.style.top = _position.top + "px";
+      xdWindow.style.left = _position.left + "px";
       if (config.border !== false) {
-        layxWindow.style.setProperty("border", config.border === true ? '1px solid #3baced' : config.border);
+        xdWindow.style.setProperty("border", config.border === true ? '1px solid #3baced' : config.border);
       }
-      layxWindow.style.backgroundColor = config.bgColor;
-      layxWindow.style.opacity = Utils.isNumber(config.opacity) ? config.opacity : 1;
+      xdWindow.style.backgroundColor = config.bgColor;
+      xdWindow.style.opacity = Utils.Util.isNumber(config.opacity) ? config.opacity : 1;
       // 为 html 类型添加更新层事件
       if (config.type === "html" || config.type === "group") {
-        layxWindow.onclick = function (e) {
+        xdWindow.onclick = function (e: any) {
           e = e || window.event;
           that.updateZIndex(config.id);
           e.stopPropagation();
         };
       }
-      document.body.appendChild(layxWindow);
+      document.body.appendChild(xdWindow);
 
       // ================ 存储对象信息
-      // 存储窗口Id
+
       winform.id = config.id;
       // 存储窗口domId
-      winform.windowId = layxWindow.getAttribute("id");
+      winform.windowId = xdWindow.getAttribute("id");
       // 存储窗口dom对象
-      winform.window = layxWindow;
+      winform.window = xdWindow;
       // 存储窗口创建时间
       winform.createDate = new Date();
       // 存储窗口状态
@@ -278,7 +265,7 @@ namespace xdwin {
       // 存储子窗口
       winform.frames = config.frames;
       // 存储子窗口索引
-      winform.groupCurrentId = (Utils.isArray(config.frames) && config.frames.length > 0 && config.frames[config.frameIndex]) ? config.frames[config.frameIndex].id : null;
+      winform.groupCurrentId = (Utils.Util.isArray(config.frames) && config.frames.length > 0 && config.frames[config.frameIndex]) ? config.frames[config.frameIndex].id : null;
       // 存储窗口初始化区域信息
       winform.area = {
         width: _width,
@@ -309,42 +296,43 @@ namespace xdwin {
       // 存储事件
       winform.event = config.event;
 
+
       // ================ 正式开始创建内容
 
       if (config.control === true) {
         // 创建控制栏
         let controlBar = document.createElement("div");
-        controlBar.classList.add("layx-control-bar");
-        controlBar.classList.add("layx-flexbox");
+        controlBar.classList.add("xdwin-control-bar");
+        controlBar.classList.add("xdwin-flexbox");
         config.controlStyle && controlBar.setAttribute("style", config.controlStyle);
         if (config.type === "group") {
-          controlBar.classList.add("layx-type-group");
+          controlBar.classList.add("xdwin-type-group");
         }
-        layxWindow.appendChild(controlBar);
+        xdWindow.appendChild(controlBar);
 
         // 创建窗口默认图标
         if (config.icon !== false) {
           // 创建控制栏左边容器
           let leftBar = document.createElement("div");
-          leftBar.classList.add("layx-left-bar");
-          leftBar.classList.add("layx-flexbox");
-          leftBar.classList.add("layx-flex-vertical");
+          leftBar.classList.add("xdwin-left-bar");
+          leftBar.classList.add("xdwin-flexbox");
+          leftBar.classList.add("xdwin-flex-vertical");
           controlBar.appendChild(leftBar);
 
           let windowIcon = document.createElement("div");
-          windowIcon.classList.add("layx-icon");
-          windowIcon.classList.add("layx-window-icon");
-          windowIcon.innerHTML = config.icon === true ? '<svg class="layx-iconfont" aria-hidden="true"><use xlink:href="#layx-icon-default-icon"></use></svg>' : config.icon;
+          windowIcon.classList.add("xdwin-icon");
+          windowIcon.classList.add("xdwin-window-icon");
+          windowIcon.innerHTML = config.icon === true ? '<svg class="xdwin-iconfont" aria-hidden="true"><use xlink:href="#xdwin-icon-default-icon"></use></svg>' : config.icon;
           leftBar.appendChild(windowIcon);
         }
 
         // 窗口标题
         let title = document.createElement("div");
-        title.classList.add("layx-title");
-        title.classList.add("layx-flexauto");
-        title.classList.add("layx-flexbox");
+        title.classList.add("xdwin-title");
+        title.classList.add("xdwin-flexauto");
+        title.classList.add("xdwin-flexbox");
         if (config.type === "group") {
-          title.classList.add("layx-type-group");
+          title.classList.add("xdwin-type-group");
         }
         // 绑定双击事件
         if (config.allowControlDbclick === true) {
@@ -358,7 +346,7 @@ namespace xdwin {
         }
         // 绑定拖动事件
         if (config.movable === true) {
-          new LayxDrag(title);
+          new XdwinDrag(title);
         }
         controlBar.appendChild(title);
         if (config.type !== "group") {
@@ -370,18 +358,18 @@ namespace xdwin {
         }
         else {
           // 窗口窗口组标题
-          if (Utils.isArray(config.frames)) {
+          if (Utils.Util.isArray(config.frames)) {
             for (let i = 0; i < config.frames.length; i++) {
-              let frameConfig = layxDeepClone({}, that.defaultFrames, config.frames[i]);
+              let frameConfig = Utils.layxDeepClone({}, that.defaultFrames, config.frames[i]);
               let frameTitle = document.createElement("div");
               frameTitle.setAttribute("data-frameId", frameConfig.id);
-              frameTitle.classList.add("layx-group-title");
+              frameTitle.classList.add("xdwin-group-title");
               if (i === config.frameIndex) {
                 frameTitle.setAttribute("data-enable", "1");
               }
               frameTitle.onclick = function (e) {
                 e = e || window.event;
-                let prevSelectTitle = layxWindow.querySelector(".layx-group-title[data-enable='1']");
+                let prevSelectTitle = xdWindow.querySelector(".xdwin-group-title[data-enable='1']");
                 if (prevSelectTitle !== this) {
                   prevSelectTitle.removeAttribute("data-enable");
                   this.setAttribute("data-enable", "1");
@@ -402,33 +390,33 @@ namespace xdwin {
 
         // 创建控制栏右边容器
         let rightBar = document.createElement("div");
-        rightBar.classList.add("layx-right-bar");
-        rightBar.classList.add("layx-flexbox");
+        rightBar.classList.add("xdwin-right-bar");
+        rightBar.classList.add("xdwin-flexbox");
         controlBar.appendChild(rightBar);
 
         // 创建用户自定义按钮
         let customMenu = document.createElement("div");
-        customMenu.classList.add("layx-custom-menus");
-        customMenu.classList.add("layx-flexbox");
+        customMenu.classList.add("xdwin-custom-menus");
+        customMenu.classList.add("xdwin-flexbox");
         rightBar.appendChild(customMenu);
 
         if (config.stickMenu === true || config.minMenu === true || config.maxMenu === true || config.closeMenu === true) {
           // 创建内置按钮
           let inlayMenu = document.createElement("div");
-          inlayMenu.classList.add("layx-inlay-menus");
-          inlayMenu.classList.add("layx-flexbox");
+          inlayMenu.classList.add("xdwin-inlay-menus");
+          inlayMenu.classList.add("xdwin-flexbox");
           rightBar.appendChild(inlayMenu);
 
           if (config.stickMenu === true || (config.alwaysOnTop === true && config.stickMenu)) {
             // 创建置顶按钮
             let stickMenu = document.createElement("div");
-            stickMenu.classList.add("layx-icon");
-            stickMenu.classList.add("layx-flexbox");
-            stickMenu.classList.add("layx-flex-center");
-            stickMenu.classList.add("layx-stick-menu");
+            stickMenu.classList.add("xdwin-icon");
+            stickMenu.classList.add("xdwin-flexbox");
+            stickMenu.classList.add("xdwin-flex-center");
+            stickMenu.classList.add("xdwin-stick-menu");
             config.alwaysOnTop === true ? stickMenu.setAttribute("title", "取消置顶") : stickMenu.setAttribute("title", "置顶");
             config.alwaysOnTop === true && stickMenu.setAttribute("data-enable", "1");
-            stickMenu.innerHTML = '<svg class="layx-iconfont" aria-hidden="true"><use xlink:href="#layx-icon-stick"></use></svg>';
+            stickMenu.innerHTML = '<svg class="xdwin-iconfont" aria-hidden="true"><use xlink:href="#xdwin-icon-stick"></use></svg>';
             if (config.stickable === true) {
               stickMenu.onclick = function (e) {
                 e = e || window.event;
@@ -442,16 +430,16 @@ namespace xdwin {
           if (config.minMenu === true) {
             // 创建最小化按钮
             let minMenu = document.createElement("div");
-            minMenu.classList.add("layx-icon");
-            minMenu.classList.add("layx-flexbox");
-            minMenu.classList.add("layx-flex-center");
-            minMenu.classList.add("layx-min-menu");
+            minMenu.classList.add("xdwin-icon");
+            minMenu.classList.add("xdwin-flexbox");
+            minMenu.classList.add("xdwin-flex-center");
+            minMenu.classList.add("xdwin-min-menu");
             minMenu.setAttribute("title", "最小化");
             minMenu.setAttribute("data-menu", "min");
-            minMenu.innerHTML = '<svg class="layx-iconfont" aria-hidden="true"><use xlink:href="#layx-icon-min"></use></svg>';
+            minMenu.innerHTML = '<svg class="xdwin-iconfont" aria-hidden="true"><use xlink:href="#xdwin-icon-min"></use></svg>';
             minMenu.onclick = function (e) {
               e = e || window.event;
-              if (!this.classList.contains("layx-restore-menu")) {
+              if (!this.classList.contains("xdwin-restore-menu")) {
                 if (config.minable === true) {
                   that.min(config.id);
                 }
@@ -469,16 +457,16 @@ namespace xdwin {
           if (config.maxMenu === true) {
             // 创建最大化按钮
             let maxMenu = document.createElement("div");
-            maxMenu.classList.add("layx-icon");
-            maxMenu.classList.add("layx-flexbox");
-            maxMenu.classList.add("layx-flex-center");
-            maxMenu.classList.add("layx-max-menu");
+            maxMenu.classList.add("xdwin-icon");
+            maxMenu.classList.add("xdwin-flexbox");
+            maxMenu.classList.add("xdwin-flex-center");
+            maxMenu.classList.add("xdwin-max-menu");
             maxMenu.setAttribute("title", "最大化");
             maxMenu.setAttribute("data-menu", "max");
-            maxMenu.innerHTML = '<svg class="layx-iconfont" aria-hidden="true"><use xlink:href="#layx-icon-max"></use></svg>';
+            maxMenu.innerHTML = '<svg class="xdwin-iconfont" aria-hidden="true"><use xlink:href="#xdwin-icon-max"></use></svg>';
             maxMenu.onclick = function (e) {
               e = e || window.event;
-              if (!this.classList.contains("layx-restore-menu")) {
+              if (!this.classList.contains("xdwin-restore-menu")) {
                 if (config.maxable === true) {
                   that.max(config.id);
                 }
@@ -496,14 +484,14 @@ namespace xdwin {
           if (config.closeMenu === true) {
             // 创建关闭按钮
             let destroyMenu = document.createElement("div");
-            destroyMenu.classList.add("layx-icon");
-            destroyMenu.classList.add("layx-flexbox");
-            destroyMenu.classList.add("layx-flex-center");
-            destroyMenu.classList.add("layx-destroy-menu");
+            destroyMenu.classList.add("xdwin-icon");
+            destroyMenu.classList.add("xdwin-flexbox");
+            destroyMenu.classList.add("xdwin-flex-center");
+            destroyMenu.classList.add("xdwin-destroy-menu");
             destroyMenu.setAttribute("title", "关闭");
-            destroyMenu.innerHTML = '<svg class="layx-iconfont" aria-hidden="true"><use xlink:href="#layx-icon-destroy"></use></svg>';
+            destroyMenu.innerHTML = '<svg class="xdwin-iconfont" aria-hidden="true"><use xlink:href="#xdwin-icon-destroy"></use></svg>';
             destroyMenu.onclick = function (e) {
-              e = e || window.event;
+              // e = e || window.event;
               if (config.closable === true) {
                 that.destroy(config.id);
               }
@@ -516,18 +504,18 @@ namespace xdwin {
 
       //创建内容容器
       let main = document.createElement("div");
-      main.classList.add("layx-main");
-      main.classList.add("layx-flexauto");
-      layxWindow.appendChild(main);
+      main.classList.add("xdwin-main");
+      main.classList.add("xdwin-flexauto");
+      xdWindow.appendChild(main);
 
       // 创建内容遮罩效果
       let contentShade = document.createElement("div");
-      contentShade.classList.add("layx-content-shade");
-      contentShade.classList.add("layx-flexbox");
-      contentShade.classList.add("layx-flex-center");
+      contentShade.classList.add("xdwin-content-shade");
+      contentShade.classList.add("xdwin-flexbox");
+      contentShade.classList.add("xdwin-flex-center");
 
       // dom元素直接添加
-      if (Utils.isDom(config.loaddingText)) {
+      if (Utils.Util.isDom(config.loaddingText)) {
         contentShade.appendChild(config.loaddingText);
       }
       else {
@@ -539,8 +527,8 @@ namespace xdwin {
         case "html":
         default:
           // 绑定加载之前事件
-          if (Utils.isFunction(config.event.onload.before)) {
-            let revel = config.event.onload.before(layxWindow: any, winform: any);
+          if (Utils.Util.isFunction(config.event.onload.before)) {
+            var revel = config.event.onload.before(xdWindow, winform);
             if (revel === false) {
               return;
             }
@@ -550,42 +538,42 @@ namespace xdwin {
           main.removeChild(contentShade);
 
           // 绑定加载之后事件
-          if (Utils.isFunction(config.event.onload.after)) {
-            config.event.onload.after(layxWindow: any, winform: any);
+          if (Utils.Util.isFunction(config.event.onload.after)) {
+            config.event.onload.after(xdWindow, winform);
           }
           break;
         case "url":
           // 绑定加载之前事件
-          if (Utils.isFunction(config.event.onload.before)) {
-            let revel = config.event.onload.before(layxWindow: any, winform: any);
+          if (Utils.Util.isFunction(config.event.onload.before)) {
+            var revel = config.event.onload.before(xdWindow, winform);
             if (revel === false) {
               return;
             }
           }
-          that.createFrameBody(main, config, layxWindow: any, winform: any);
+          that.createFrameBody(main, config, xdWindow, winform);
 
           // 绑定加载之后事件
-          if (Utils.isFunction(config.event.onload.after)) {
-            config.event.onload.after(layxWindow: any, winform: any);
+          if (Utils.Util.isFunction(config.event.onload.after)) {
+            config.event.onload.after(xdWindow, winform);
           }
 
           break;
         case "group":
           // 创建窗口组主体
-          if (Utils.isArray(config.frames)) {
+          if (Utils.Util.isArray(config.frames)) {
             // 绑定加载之前事件
-            if (Utils.isFunction(config.event.onload.before)) {
-              let revel = config.event.onload.before(layxWindow: any, winform: any);
+            if (Utils.Util.isFunction(config.event.onload.before)) {
+              var revel = config.event.onload.before(xdWindow, winform);
               if (revel === false) {
                 return;
               }
             }
 
-            let groupLoadCount = 0;
-            for (let i = 0; i < config.frames.length; i++) {
-              let frameConfig = layxDeepClone({}, that.defaultFrames, config.frames[i]);
-              let frameBody = document.createElement("div");
-              frameBody.classList.add("layx-group-main");
+            var groupLoadCount = 0;
+            for (var i = 0; i < config.frames.length; i++) {
+              var frameConfig = Utils.layxDeepClone({}, that.defaultFrames, config.frames[i]);
+              var frameBody = document.createElement("div");
+              frameBody.classList.add("xdwin-group-main");
               frameBody.setAttribute("data-frameId", frameConfig.id);
               if (i === config.frameIndex) {
                 frameBody.setAttribute("data-enable", "1");
@@ -597,17 +585,17 @@ namespace xdwin {
                 // 加载完毕，添加complete标识
                 frameBody.setAttribute("data-complete", "1");
 
-                let loadComplteMains = layxWindow.querySelectorAll(".layx-group-main[data-complete='1']");
+                var loadComplteMains = xdWindow.querySelectorAll(".xdwin-group-main[data-complete='1']");
                 if (loadComplteMains.length === config.frames.length) {
                   main.removeChild(contentShade);
                   // 绑定加载之后事件
-                  if (Utils.isFunction(config.event.onload.after)) {
-                    config.event.onload.after(layxWindow: any, winform: any);
+                  if (Utils.Util.isFunction(config.event.onload.after)) {
+                    config.event.onload.after(xdWindow, winform);
                   }
                 }
               }
               else if (frameConfig.type === "url") {
-                that.createFrameBody(frameBody, config, layxWindow: any, winform: any, "group", frameConfig);
+                that.createFrameBody(frameBody, config, xdWindow, winform, "group", frameConfig);
               }
             }
           }
@@ -616,89 +604,89 @@ namespace xdwin {
 
       if (config.resizable === true) {
         // 创建拖曳容器
-        let resize = document.createElement("div");
-        resize.classList.add("layx-resizes");
-        layxWindow.appendChild(resize);
+        var resize = document.createElement("div");
+        resize.classList.add("xdwin-resizes");
+        xdWindow.appendChild(resize);
 
         // 创建8个方向拖曳
         if (config.resizeLimit.t === false) {
           // 上
-          let resizeTop = document.createElement("div");
-          resizeTop.classList.add("layx-resize-top");
-          new LayxResize(resizeTop, true, false, true, false);
+          var resizeTop = document.createElement("div");
+          resizeTop.classList.add("xdwin-resize-top");
+          new XdwinResize(resizeTop, true, false, true, false);
           resize.appendChild(resizeTop);
         }
         if (config.resizeLimit.r === false) {
           // 右
-          let resizeRight = document.createElement("div");
-          resizeRight.classList.add("layx-resize-right");
-          new LayxResize(resizeRight, false, false, false, true);
+          var resizeRight = document.createElement("div");
+          resizeRight.classList.add("xdwin-resize-right");
+          new XdwinResize(resizeRight, false, false, false, true);
           resize.appendChild(resizeRight);
         }
 
         if (config.resizeLimit.b === false) {
           //下
-          let resizeBottom = document.createElement("div");
-          resizeBottom.classList.add("layx-resize-bottom");
-          new LayxResize(resizeBottom, false, false, true, false);
+          var resizeBottom = document.createElement("div");
+          resizeBottom.classList.add("xdwin-resize-bottom");
+          new XdwinResize(resizeBottom, false, false, true, false);
           resize.appendChild(resizeBottom);
         }
 
         if (config.resizeLimit.l === false) {
           // 左
-          let resizeLeft = document.createElement("div");
-          resizeLeft.classList.add("layx-resize-left");
-          new LayxResize(resizeLeft, false, true, false, true);
+          var resizeLeft = document.createElement("div");
+          resizeLeft.classList.add("xdwin-resize-left");
+          new XdwinResize(resizeLeft, false, true, false, true);
           resize.appendChild(resizeLeft);
         }
 
         if (config.resizeLimit.lt === false) {
           // 左上
-          let resizeLeftTop = document.createElement("div");
-          resizeLeftTop.classList.add("layx-resize-left-top");
-          new LayxResize(resizeLeftTop, true, true, false, false);
+          var resizeLeftTop = document.createElement("div");
+          resizeLeftTop.classList.add("xdwin-resize-left-top");
+          new XdwinResize(resizeLeftTop, true, true, false, false);
           resize.appendChild(resizeLeftTop);
         }
 
         if (config.resizeLimit.rt === false) {
           //右上
-          let resizeRightTop = document.createElement("div");
-          resizeRightTop.classList.add("layx-resize-right-top");
-          new LayxResize(resizeRightTop, true, false, false, false);
+          var resizeRightTop = document.createElement("div");
+          resizeRightTop.classList.add("xdwin-resize-right-top");
+          new XdwinResize(resizeRightTop, true, false, false, false);
           resize.appendChild(resizeRightTop);
         }
 
         if (config.resizeLimit.lb === false) {
           //左下
-          let resizeLeftBottom = document.createElement("div");
-          resizeLeftBottom.classList.add("layx-resize-left-bottom");
-          new LayxResize(resizeLeftBottom, false, true, false, false);
+          var resizeLeftBottom = document.createElement("div");
+          resizeLeftBottom.classList.add("xdwin-resize-left-bottom");
+          new XdwinResize(resizeLeftBottom, false, true, false, false);
           resize.appendChild(resizeLeftBottom);
         }
 
         if (config.resizeLimit.rb === false) {
           // 右下
-          let resizeRightBottom = document.createElement("div");
-          resizeRightBottom.classList.add("layx-resize-right-bottom");
-          new LayxResize(resizeRightBottom, false, false, false, false);
+          var resizeRightBottom = document.createElement("div");
+          resizeRightBottom.classList.add("xdwin-resize-right-bottom");
+          new XdwinResize(resizeRightBottom, false, false, false, false);
           resize.appendChild(resizeRightBottom);
         }
       }
 
       // 创建状态栏
       if (config.statusBar) {
-        let statusBar = document.createElement("div");
-        statusBar.classList.add("layx-statu-bar");
+        var statusBar = document.createElement("div");
+        statusBar.classList.add("xdwin-statu-bar");
         config.statusBarStyle && statusBar.setAttribute("style", config.statusBarStyle);
         // 创建按钮
 
-        if (config.statusBar === true && Utils.isArray(config.buttons)) {
-          let btnElement = that.createLayxButtons(config.buttons, config.id, config.isPrompt);
+        if (config.statusBar === true && Utils.Util.isArray(config.buttons)) {
+          var btnElement = that.createLayxButtons(config.buttons, config.id, config.isPrompt);
           statusBar.appendChild(btnElement);
         }
         else {
           // dom元素直接添加
-          if (Utils.isDom(config.statusBar)) {
+          if (Utils.Util.isDom(config.statusBar)) {
             statusBar.appendChild(config.statusBar);
           }
           else {
@@ -706,19 +694,19 @@ namespace xdwin {
           }
         }
 
-        layxWindow.appendChild(statusBar);
+        xdWindow.appendChild(statusBar);
       }
 
       // 自动关闭提示
       if (/(^[1-9]\d*$)/.test(config.autodestroy)) {
-        let second = config.autodestroy / 1000;
+        var second = config.autodestroy / 1000;
         if (config.autodestroyText !== false) {
-          let autodestroyTip = document.createElement("div");
-          autodestroyTip.classList.add("layx-auto-destroy-tip");
+          var autodestroyTip = document.createElement("div");
+          autodestroyTip.classList.add("xdwin-auto-destroy-tip");
           autodestroyTip.innerHTML = config.autodestroyText.replace("{second}", second);
-          layxWindow.appendChild(autodestroyTip);
+          xdWindow.appendChild(autodestroyTip);
         }
-        let destroyTimer = setInterval(function () {
+        var destroyTimer = setInterval(function () {
           --second;
           if (config.autodestroyText !== false) {
             autodestroyTip.innerHTML = config.autodestroyText.replace("{second}", second);
@@ -738,360 +726,61 @@ namespace xdwin {
         that.max(config.id);
       }
       return winform;
-    },
-    // 设置窗口组选择（内部方法）
-    _setGroupIndex: function (id, target) {
+    }
+
+    private _setGroupIndex(id: string, target: any) {
       let that = this,
-        windowId = "layx-" + id,
+        windowId = "xdwin-" + id,
         layxWindow = document.getElementById(windowId),
         winform = that.windows[id];
       if (layxWindow && winform) {
-        let frameId = target.getAttribute("data-frameId");
-        let prevGroupMain = layxWindow.querySelector(".layx-group-main[data-enable='1']");
-        let currentGroupMain = layxWindow.querySelector(".layx-group-main[data-frameId='" + frameId + "']");
+        var frameId = target.getAttribute("data-frameId");
+        var prevGroupMain = layxWindow.querySelector(".xdwin-group-main[data-enable='1']");
+        var currentGroupMain = layxWindow.querySelector(".xdwin-group-main[data-frameId='" + frameId + "']");
         if (currentGroupMain !== prevGroupMain) {
           prevGroupMain.removeAttribute("data-enable");
           currentGroupMain.setAttribute("data-enable", "1");
           winform.groupCurrentId = frameId;
         }
       }
-    },
-    // 设置窗口组索引
-    setGroupIndex: function (id, frameId) {
-      let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
-        winform = that.windows[id];
-      if (layxWindow && winform) {
-        let title = layxWindow.querySelector(".layx-group-title[data-frameId='" + frameId + "']");
-        title.click();
-      }
-    },
-    // 创建HTML内容
-    createHtmlBody: function (main, config, content, type, frameConfig) {
-      // 创建html内容
-      let html = document.createElement("div");
-      html.classList.add("layx-html");
-      html.classList.add("layx-flexbox");
-      html.setAttribute("id", "layx-" + config.id + (type === "group" ? "-" + frameConfig.id + "-" : "-") + "html");
-      // dom元素直接添加
-      if (Utils.isDom(content)) {
-        html.appendChild(content);
-      }
-      else {
-        html.innerHTML = content;
-      }
-      main.appendChild(html);
-    },
-    // 创建Frame内容
-    createFrameBody: function (main, config, layxWindow: any, winform: any, type, frameConfig) {
-      let that = this;
-      let contentShade = (type === "group" ? main.parentNode : main).querySelector(".layx-content-shade");
+    }
 
-      let iframe = document.createElement("iframe");
-      iframe.setAttribute("id", "layx-" + config.id + (type === "group" ? "-" + frameConfig.id + "-" : "-") + "iframe");
-      iframe.classList.add("layx-iframe");
-      iframe.classList.add("layx-flexbox");
-      iframe.setAttribute("allowtransparency", "true");
-      iframe.setAttribute("frameborder", "0");
-      iframe.setAttribute("scrolling", "auto");
-      iframe.setAttribute("allowfullscreen", "");
-      iframe.setAttribute("mozallowfullscreen", "");
-      iframe.setAttribute("webkitallowfullscreen", "");
-      iframe.src = (type === "group" ? frameConfig.url : config.url) || 'about:blank';
-
-      let iframeTitle = "";
-      // ie9+
-      if (iframe.attachEvent) {
-        iframe.attachEvent("onreadystatechange", function () {
-          if (iframe.readyState === "complete" || iframe.readyState == "loaded") {
-            iframe.detachEvent("onreadystatechange", arguments.callee);
-            try {
-              if (type === "group") {
-                if (frameConfig.useFrameTitle === true) {
-                  // 获取iframe标题
-                  iframeTitle = iframe.contentWindow.document.querySelector("title").innerText;
-                  that.setGroupTitle(config.id, frameConfig.id, iframeTitle);
-                }
-              }
-              else {
-                if (config.useFrameTitle === true) {
-                  // 获取iframe标题
-                  iframeTitle = iframe.contentWindow.document.querySelector("title").innerText;
-                  that.setTitle(config.id, iframeTitle);
-                }
-              }
-              if (config.focusable === true) {
-                // 添加iframe点击事件
-                iframe.contentWindow.onclick = function (e) {
-                  let _slf = this.self;
-                  e = e || iframe.contentWindow.event;
-                  if (_slf !== over && _slf.frameElement && _slf.frameElement.tagName === "IFRAME") {
-                    // 获取窗口dom对象
-                    let layxWindow = Utils.getNodeByClassName(_slf.frameElement, 'layx-window', _slf);
-                    // 更新层级别
-                    let windowId = layxWindow.getAttribute("id").substr(5);
-                    that.updateZIndex(windowId);
-                  }
-                  e.stopPropagation();
-                }
-              }
-            } catch (e) {
-              console.warn(e);
-            }
-
-            if (contentShade) {
-              if (type === "group") {
-                main.setAttribute("data-complete", "1");
-                let loadComplteMains = layxWindow.querySelectorAll(".layx-group-main[data-complete='1']");
-
-                if (config.frames.length === loadComplteMains.length) {
-                  contentShade.parentNode.removeChild(contentShade);
-                  // 绑定加载之后事件
-                  if (Utils.isFunction(config.event.onload.after)) {
-                    config.event.onload.after(layxWindow: any, winform: any);
-                  }
-                }
-              }
-              else {
-                contentShade.parentNode.removeChild(contentShade);
-                // 绑定加载之后事件
-                if (Utils.isFunction(config.event.onload.after)) {
-                  config.event.onload.after(layxWindow: any, winform: any);
-                }
-              }
-            }
-          }
-        });
-      }
-      // chrome,foxfire,opera...
-      else {
-        iframe.addEventListener("load", function () {
-          this.removeEventListener("load", arguments.call, false);
-          try {
-            if (type === "group") {
-              if (frameConfig.useFrameTitle === true) {
-                // 获取iframe标题
-                iframeTitle = iframe.contentWindow.document.querySelector("title").innerText;
-                that.setGroupTitle(config.id, frameConfig.id, iframeTitle);
-              }
-            }
-            else {
-              if (config.useFrameTitle === true) {
-                // 获取iframe标题
-                iframeTitle = iframe.contentWindow.document.querySelector("title").innerText;
-                that.setTitle(config.id, iframeTitle);
-              }
-            }
-            if (config.focusable === true) {
-              // 添加iframe点击事件
-              iframe.contentWindow.onclick = function (e) {
-                let _slf = this.self;
-                e = e || iframe.contentWindow.event;
-                if (_slf !== over && _slf.frameElement && _slf.frameElement.tagName === "IFRAME") {
-                  // 获取窗口dom对象
-                  let layxWindow = Utils.getNodeByClassName(_slf.frameElement, 'layx-window', _slf);
-                  // 更新层级别
-                  let windowId = layxWindow.getAttribute("id").substr(5);
-                  that.updateZIndex(windowId);
-                }
-                e.stopPropagation();
-              }
-            }
-          } catch (e) {
-            console.warn(e);
-          }
-
-          if (contentShade) {
-            if (type === "group") {
-              main.setAttribute("data-complete", "1");
-              let loadComplteMains = layxWindow.querySelectorAll(".layx-group-main[data-complete='1']");
-
-              if (config.frames.length === loadComplteMains.length) {
-                contentShade.parentNode.removeChild(contentShade);
-                // 绑定加载之后事件
-                if (Utils.isFunction(config.event.onload.after)) {
-                  config.event.onload.after(layxWindow: any, winform: any);
-                }
-              }
-            }
-            else {
-              contentShade.parentNode.removeChild(contentShade);
-              // 绑定加载之后事件
-              if (Utils.isFunction(config.event.onload.after)) {
-                config.event.onload.after(layxWindow: any, winform: any);
-              }
-            }
-          }
-        }, false);
-      }
-      main.appendChild(iframe);
-    },
-    // 设置窗口内容，文本窗口有效
-    setContent: function (id, content) {
+    // 闪烁窗口
+    flicker(id: string) {
       let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
+        flickerTimer: any,
+        windowId = "xdwin-" + id,
+        xdWindow = document.getElementById(windowId),
         winform = that.windows[id];
-      if (layxWindow && winform) {
-        if (winform.type === "html") {
-          let html = layxWindow.querySelector("#layx-" + id + "-html");
-          if (html) {
-            if (Utils.isDom(content)) {
-              html.appendChild(content);
-            }
-            else {
-              html.innerHTML = content;
-            }
-          }
-        }
-      }
-    },
-    // 获取窗口组Frame对象
-    getGroupFrame: function (frames, frameId) {
-      let frm = {};
-      for (let i = 0; i < frames.length; i++) {
-        if (frames[i].id === frameId) {
-          frm = frames[i];
-          break;
-        }
-      }
-      return frm;
-    },
-    // 设置窗口组内容
-    setGroupContent: function (id, frameId, content) {
-      let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
-        winform = that.windows[id];
-      if (layxWindow && winform && Utils.isArray(winform.frames)) {
-
-        if (that.getGroupFrame(winform.frames, frameId).type === "html") {
-          let html = layxWindow.querySelector("#layx-" + id + "-" + frameId + "-" + "html");
-          if (html) {
-            if (Utils.isDom(content)) {
-              html.appendChild(content);
-            }
-            else {
-              html.innerHTML = content;
-            }
-          }
-        }
-      }
-    },
-    // 设置iframe地址，iframe窗口有效
-    setUrl: function (id, url) {
-      url = url || 'about:blank';
-      let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
-        winform = that.windows[id];
-      if (layxWindow && winform) {
-        if (winform.type === "url") {
-          let iframe = layxWindow.querySelector("#layx-" + id + "-iframe");
-          if (iframe) {
-            iframe.setAttribute("src", url);
-          }
-        }
-      }
-    },
-    // 设置窗口组Url
-    setGroupUrl: function (id, frameId, url) {
-      url = url || 'about:blank';
-      let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
-        winform = that.windows[id];
-      if (layxWindow && winform) {
-        if (that.getGroupFrame(winform.frames, frameId).type === "html") {
-          let iframe = layxWindow.querySelector("#layx-" + id + "-" + frameId + "-" + "iframe");
-          if (iframe) {
-            iframe.setAttribute("src", url);
-          }
-        }
-      }
-    },
-    // 设置窗口组标题
-    setGroupTitle: function (id, frameId, content, useFrameTitle) {
-      let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
-        winform = that.windows[id];
-      if (layxWindow && winform) {
-        let title = layxWindow.querySelector(".layx-group-title[data-frameId='" + frameId + "']");
-        if (title) {
-          // 获取iframe标题
-          if (useFrameTitle === true) {
-            let iframe = layxWindow.querySelector("#layx-" + id + "-" + frameId + "-" + "iframe");
-            try {
-              content = iframe.contentDocument.querySelector("title").innerText;
-            } catch (e) { }
-          }
-          let label = title.querySelector("label");
-          if (label) {
-            label.innerHTML = content;
-            title.setAttribute("title", label.innerHTML);
-          }
-        }
-      }
-    },
-    // 设置标题
-    setTitle: function (id, content, useFrameTitle) {
-      let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
-        winform = that.windows[id];
-      if (layxWindow && winform) {
-        let title = layxWindow.querySelector(".layx-title");
-        if (title) {
-          // 获取iframe标题
-          if (useFrameTitle === true) {
-            let iframe = layxWindow.querySelector("#layx-" + id + "-iframe");
-            try {
-              content = iframe.contentDocument.querySelector("title").innerText;
-            } catch (e) { }
-          }
-          let label = title.querySelector("label");
-          if (label) {
-            label.innerHTML = content;
-            title.setAttribute("title", label.innerHTML);
-          }
-        }
-      }
-    },
-    // 置顶切换
-    stickToggle: function (id) {
-      let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
-        winform = that.windows[id];
-      if (layxWindow && winform) {
+      if (xdWindow && winform) {
         // 更新层级别
         that.updateZIndex(id);
 
-        winform.isStick = !winform.isStick;
-        let stickMenu = layxWindow.querySelector(".layx-stick-menu");
-        if (stickMenu) {
-          stickMenu.setAttribute("data-enable", winform.isStick ? "1" : "0");
-          winform.isStick ? stickMenu.setAttribute("title", "取消置顶") : stickMenu.setAttribute("title", "置顶");
+        if (xdWindow.classList.contains('xdwin-flicker')) {
+          xdWindow.classList.remove('xdwin-flicker');
         }
-        that.updateZIndex(id);
+        xdWindow.classList.add('xdwin-flicker');
+
+        flickerTimer = setTimeout(() => {
+          xdWindow.classList.remove('xdwin-flicker');
+          clearTimeout(flickerTimer);
+        }, 120 * 8);
       }
-    },
+    };
     // 恢复窗口
-    restore: function (id) {
+    restore(id: string) {
       let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
+        windowId = "xdwin-" + id,
+        xdWindow = document.getElementById(windowId),
         winform = that.windows[id];
-      if (layxWindow && winform) {
+      if (xdWindow && winform) {
         if (winform.restorable !== true) return;
         // 更新层级别
         that.updateZIndex(id);
 
         // 绑定恢复之前事件
-        if (Utils.isFunction(winform.event.onrestore.before)) {
-          let revel = winform.event.onrestore.before(layxWindow: any, winform: any);
+        if (Utils.Util.isFunction(winform.event.onrestore.before)) {
+          let revel = winform.event.onrestore.before(xdWindow, winform);
           if (revel === false) {
             return;
           }
@@ -1103,26 +792,26 @@ namespace xdwin {
         }
         else if (winform.status === "max") {
           // 恢复滚动条
-          if (document.body.classList.contains("layx-body")) {
-            document.body.classList.remove('layx-body');
+          if (document.body.classList.contains("xdwin-body")) {
+            document.body.classList.remove('xdwin-body');
           }
           // 设置窗口信息
-          layxWindow.style.top = area.top + "px";
-          layxWindow.style.left = area.left + "px";
-          layxWindow.style.width = area.width + "px";
-          layxWindow.style.height = area.height + "px";
+          xdWindow.style.top = area.top + "px";
+          xdWindow.style.left = area.left + "px";
+          xdWindow.style.width = area.width + "px";
+          xdWindow.style.height = area.height + "px";
           // 存储状态
           winform.status = "normal";
           // 更新图标
-          let restoreMenu = layxWindow.querySelector(".layx-restore-menu[data-menu='max']");
+          let restoreMenu = xdWindow.querySelector(".xdwin-restore-menu[data-menu='max']");
           if (restoreMenu) {
-            restoreMenu.classList.remove("layx-restore-menu");
-            restoreMenu.classList.add("layx-max-menu");
+            restoreMenu.classList.remove("xdwin-restore-menu");
+            restoreMenu.classList.add("xdwin-max-menu");
             restoreMenu.setAttribute("title", "最大化");
-            restoreMenu.innerHTML = '<svg class="layx-iconfont" aria-hidden="true"><use xlink:href="#layx-icon-max"></use></svg>';
+            restoreMenu.innerHTML = '<svg class="xdwin-iconfont" aria-hidden="true"><use xlink:href="#xdwin-icon-max"></use></svg>';
           }
           // 显示拖曳
-          let resizePanel = layxWindow.querySelector(".layx-resizes");
+          let resizePanel = xdWindow.querySelector(".xdwin-resizes");
           if (resizePanel) {
             resizePanel.removeAttribute("data-enable");
           }
@@ -1130,22 +819,22 @@ namespace xdwin {
         if (winform.status === "min") {
           if (winform.minBefore === "normal") {
             // 设置窗口信息
-            layxWindow.style.top = area.top + "px";
-            layxWindow.style.left = area.left + "px";
-            layxWindow.style.width = area.width + "px";
-            layxWindow.style.height = area.height + "px";
+            xdWindow.style.top = area.top + "px";
+            xdWindow.style.left = area.left + "px";
+            xdWindow.style.width = area.width + "px";
+            xdWindow.style.height = area.height + "px";
             // 存储状态
             winform.status = "normal";
             // 更新图标
-            let restoreMenu = layxWindow.querySelector(".layx-restore-menu[data-menu='min']");
+            let restoreMenu = xdWindow.querySelector(".xdwin-restore-menu[data-menu='min']");
             if (restoreMenu) {
-              restoreMenu.classList.remove("layx-restore-menu");
-              restoreMenu.classList.add("layx-min-menu");
+              restoreMenu.classList.remove("xdwin-restore-menu");
+              restoreMenu.classList.add("xdwin-min-menu");
               restoreMenu.setAttribute("title", "最小化");
-              restoreMenu.innerHTML = '<svg class="layx-iconfont" aria-hidden="true"><use xlink:href="#layx-icon-min"></use></svg>';
+              restoreMenu.innerHTML = '<svg class="xdwin-iconfont" aria-hidden="true"><use xlink:href="#xdwin-icon-min"></use></svg>';
             }
             // 显示拖曳
-            let resizePanel = layxWindow.querySelector(".layx-resizes");
+            let resizePanel = xdWindow.querySelector(".xdwin-resizes");
             if (resizePanel) {
               resizePanel.removeAttribute("data-enable");
             }
@@ -1158,88 +847,30 @@ namespace xdwin {
         }
 
         // 克隆一份
-        let _winform = layxDeepClone({}, winform);
+        let _winform = Utils.layxDeepClone({}, winform);
         delete that.windows[id];
         that.windows[id] = _winform;
         // 更新最小化布局
         that.updateMinLayout();
 
-        if (layxWindow.classList.contains("layx-min-statu")) {
-          layxWindow.classList.remove("layx-min-statu");
+        if (xdWindow.classList.contains("xdwin-min-statu")) {
+          xdWindow.classList.remove("xdwin-min-statu");
         }
 
         // 绑定恢复之后事件
-        if (Utils.isFunction(winform.event.onrestore.after)) {
-          winform.event.onrestore.after(layxWindow: any, winform: any);
+        if (Utils.Util.isFunction(winform.event.onrestore.after)) {
+          winform.event.onrestore.after(xdWindow, winform);
         }
       }
-    },
-    // 最小化
-    min: function (id) {
-      let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
-        winform = that.windows[id],
-        innertArea = Utils.innerArea();
-      if (layxWindow && winform) {
-        if (winform.minable !== true) return;
-        // 更新层级别
-        that.updateZIndex(id);
-
-        // 绑定最小化之前事件
-        if (Utils.isFunction(winform.event.onmin.before)) {
-          let revel = winform.event.onmin.before(layxWindow: any, winform: any);
-          if (revel === false) {
-            return;
-          }
-        }
-
-        // 存储状态
-        winform.minBefore = winform.status;
-        winform.status = "min";
-        // 更新图标
-        let minMenu = layxWindow.querySelector(".layx-min-menu");
-        if (minMenu) {
-          minMenu.classList.remove("layx-max-menu");
-          minMenu.classList.add("layx-restore-menu");
-          minMenu.setAttribute("title", "恢复");
-          minMenu.innerHTML = '<svg class="layx-iconfont" aria-hidden="true"><use xlink:href="#layx-icon-restore"></use></svg>';
-        }
-        // 隐藏拖曳
-        let resizePanel = layxWindow.querySelector(".layx-resizes");
-        if (resizePanel) {
-          resizePanel.setAttribute("data-enable", "0");
-        }
-
-        // 更新最大化图标
-        let restoreMenu = layxWindow.querySelector(".layx-restore-menu[data-menu='max']");
-        if (restoreMenu) {
-          restoreMenu.classList.remove("layx-restore-menu");
-          restoreMenu.classList.add("layx-max-menu");
-          restoreMenu.setAttribute("title", "最大化");
-          restoreMenu.innerHTML = '<svg class="layx-iconfont" aria-hidden="true"><use xlink:href="#layx-icon-max"></use></svg>';
-        }
-        // 克隆一份
-        let _winform = layxDeepClone({}, winform);
-        delete that.windows[id];
-        that.windows[id] = _winform;
-        // 更新最小化布局
-        that.updateMinLayout();
-
-        // 绑定最小化之后事件
-        if (Utils.isFunction(winform.event.onmin.after)) {
-          winform.event.onmin.after(layxWindow: any, winform: any);
-        }
-      }
-    },
+    }
     // 更新层级别
-    updateZIndex: function (id) {
+    updateZIndex(id: string) {
       let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
+        windowId = "xdwin-" + id,
+        xdWindow = document.getElementById(windowId),
         winform = that.windows[id];
-      if (layxWindow && winform) {
-        let layxShade = document.getElementById("layx-" + id + "-shade");
+      if (xdWindow && winform) {
+        let layxShade: any = document.getElementById("xdwin-" + id + "-shade");
         if (layxShade) {
           layxShade.style.zIndex = (winform.isStick === true ? (++that.stickZIndex) : (++that.zIndex));
         }
@@ -1249,14 +880,15 @@ namespace xdwin {
         else {
           winform.zIndex = (++that.zIndex) + 1;
         }
-        layxWindow.style.zIndex = winform.zIndex;
+        xdWindow.style.zIndex = winform.zIndex;
       }
-    },
+    }
+
     // 更新最小化布局
-    updateMinLayout: function () {
+    updateMinLayout() {
       let that = this,
         windows = that.windows,
-        innertArea = Utils.innerArea(),
+        innertArea = Utils.Util.innerArea(),
         paddingLeft = 10,
         paddingBottom = 10,
         widthByMinStatu = 240,
@@ -1264,105 +896,164 @@ namespace xdwin {
         lineMaxCount = Math.floor(innertArea.width / (widthByMinStatu + paddingLeft));
       for (let id in windows) {
         let winform = windows[id],
-          layxWindow = document.getElementById("layx-" + id);
-        if (layxWindow && winform.status === "min") {
-          let control = layxWindow.querySelector(".layx-control-bar");
+          xdWindow: any = document.getElementById("xdwin-" + id);
+        if (xdWindow && winform.status === "min") {
+          let control = xdWindow.querySelector(".xdwin-control-bar");
           if (control) {
             let heightByMinStatus = control.offsetHeight;
-            layxWindow.classList.add("layx-min-statu");
+            xdWindow.classList.add("xdwin-min-statu");
             // 设置最小化区域
-            layxWindow.style.width = widthByMinStatu + 'px';
-            layxWindow.style.height = heightByMinStatus + 'px';
-            layxWindow.style.top = innertArea.height - (Math.floor(stepIndex / lineMaxCount) + 1) * (heightByMinStatus + paddingBottom) + 'px';
-            layxWindow.style.left = stepIndex % lineMaxCount * (widthByMinStatu + paddingLeft) + paddingLeft + 'px';
+            xdWindow.style.width = widthByMinStatu + 'px';
+            xdWindow.style.height = heightByMinStatus + 'px';
+            xdWindow.style.top = innertArea.height - (Math.floor(stepIndex / lineMaxCount) + 1) * (heightByMinStatus + paddingBottom) + 'px';
+            xdWindow.style.left = stepIndex % lineMaxCount * (widthByMinStatu + paddingLeft) + paddingLeft + 'px';
             stepIndex++;
           }
         }
       }
-    },
+    };
     // 最大化
-    max: function (id) {
+    max(id: string) {
       let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
+        windowId = "xdwin-" + id,
+        xdWindow: any = document.getElementById(windowId),
         winform = that.windows[id],
-        innertArea = Utils.innerArea();
-      if (layxWindow && winform) {
+        innertArea = Utils.Util.innerArea();
+      if (xdWindow && winform) {
         if (winform.maxable !== true) return;
         // 更新层级别
         that.updateZIndex(id);
 
         // 绑定最大化之前事件
-        if (Utils.isFunction(winform.event.onmax.before)) {
-          let revel = winform.event.onmax.before(layxWindow: any, winform: any);
+        if (Utils.Util.isFunction(winform.event.onmax.before)) {
+          let revel = winform.event.onmax.before(xdWindow, winform);
           if (revel === false) {
             return;
           }
         }
 
         // 隐藏滚动条
-        document.body.classList.add('layx-body');
+        document.body.classList.add('xdwin-body');
         // 设置窗口信息
-        layxWindow.style.top = 0;
-        layxWindow.style.left = 0;
-        layxWindow.style.width = innertArea.width + "px";
-        layxWindow.style.height = innertArea.height + "px";
+        xdWindow.style.top = 0;
+        xdWindow.style.left = 0;
+        xdWindow.style.width = innertArea.width + "px";
+        xdWindow.style.height = innertArea.height + "px";
         // 存储状态
         winform.status = "max";
         // 更新图标
-        let maxMenu = layxWindow.querySelector(".layx-max-menu");
+        let maxMenu = xdWindow.querySelector(".xdwin-max-menu");
         if (maxMenu) {
-          maxMenu.classList.remove("layx-max-menu");
-          maxMenu.classList.add("layx-restore-menu");
+          maxMenu.classList.remove("xdwin-max-menu");
+          maxMenu.classList.add("xdwin-restore-menu");
           maxMenu.setAttribute("title", "恢复");
-          maxMenu.innerHTML = '<svg class="layx-iconfont" aria-hidden="true"><use xlink:href="#layx-icon-restore"></use></svg>';
+          maxMenu.innerHTML = '<svg class="xdwin-iconfont" aria-hidden="true"><use xlink:href="#xdwin-icon-restore"></use></svg>';
         }
         // 隐藏拖曳
-        let resizePanel = layxWindow.querySelector(".layx-resizes");
+        let resizePanel = xdWindow.querySelector(".xdwin-resizes");
         if (resizePanel) {
           resizePanel.setAttribute("data-enable", "0");
         }
 
         // 更新最小化图标
-        let restoreMenu = layxWindow.querySelector(".layx-restore-menu[data-menu='min']");
+        let restoreMenu = xdWindow.querySelector(".xdwin-restore-menu[data-menu='min']");
         if (restoreMenu) {
-          restoreMenu.classList.remove("layx-restore-menu");
-          restoreMenu.classList.add("layx-min-menu");
+          restoreMenu.classList.remove("xdwin-restore-menu");
+          restoreMenu.classList.add("xdwin-min-menu");
           restoreMenu.setAttribute("title", "最小化");
-          restoreMenu.innerHTML = '<svg class="layx-iconfont" aria-hidden="true"><use xlink:href="#layx-icon-min"></use></svg>';
+          restoreMenu.innerHTML = '<svg class="xdwin-iconfont" aria-hidden="true"><use xlink:href="#xdwin-icon-min"></use></svg>';
         }
 
         // 克隆一份
-        let _winform = layxDeepClone({}, winform);
+        let _winform = Utils.layxDeepClone({}, winform);
         delete that.windows[id];
         that.windows[id] = _winform;
         // 更新最小化布局
         that.updateMinLayout();
 
-        if (layxWindow.classList.contains("layx-min-statu")) {
-          layxWindow.classList.remove("layx-min-statu");
+        if (xdWindow.classList.contains("xdwin-min-statu")) {
+          xdWindow.classList.remove("xdwin-min-statu");
         }
 
         // 绑定最大化之后事件
-        if (Utils.isFunction(winform.event.onmax.after)) {
-          winform.event.onmax.after(layxWindow: any, winform: any);
+        if (Utils.Util.isFunction(winform.event.onmax.after)) {
+          winform.event.onmax.after(xdWindow, winform);
         }
       }
-    },
-    // 销毁
-    destroy: function (id) {
+    };
+
+    // 最小化
+    min(id: string) {
       let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
+        windowId = "xdwin-" + id,
+        xdWindow = document.getElementById(windowId),
+        winform = that.windows[id],
+        innertArea = Utils.Util.innerArea();
+      if (xdWindow && winform) {
+        if (winform.minable !== true) return;
+        // 更新层级别
+        that.updateZIndex(id);
+
+        // 绑定最小化之前事件
+        if (Utils.Util.isFunction(winform.event.onmin.before)) {
+          let revel = winform.event.onmin.before(xdWindow, winform);
+          if (revel === false) {
+            return;
+          }
+        }
+
+        // 存储状态
+        winform.minBefore = winform.status;
+        winform.status = "min";
+        // 更新图标
+        let minMenu = xdWindow.querySelector(".xdwin-min-menu");
+        if (minMenu) {
+          minMenu.classList.remove("xdwin-max-menu");
+          minMenu.classList.add("xdwin-restore-menu");
+          minMenu.setAttribute("title", "恢复");
+          minMenu.innerHTML = '<svg class="xdwin-iconfont" aria-hidden="true"><use xlink:href="#xdwin-icon-restore"></use></svg>';
+        }
+        // 隐藏拖曳
+        let resizePanel = xdWindow.querySelector(".xdwin-resizes");
+        if (resizePanel) {
+          resizePanel.setAttribute("data-enable", "0");
+        }
+
+        // 更新最大化图标
+        let restoreMenu = xdWindow.querySelector(".xdwin-restore-menu[data-menu='max']");
+        if (restoreMenu) {
+          restoreMenu.classList.remove("xdwin-restore-menu");
+          restoreMenu.classList.add("xdwin-max-menu");
+          restoreMenu.setAttribute("title", "最大化");
+          restoreMenu.innerHTML = '<svg class="xdwin-iconfont" aria-hidden="true"><use xlink:href="#xdwin-icon-max"></use></svg>';
+        }
+        // 克隆一份
+        let _winform = Utils.layxDeepClone({}, winform);
+        delete that.windows[id];
+        that.windows[id] = _winform;
+        // 更新最小化布局
+        that.updateMinLayout();
+
+        // 绑定最小化之后事件
+        if (Utils.Util.isFunction(winform.event.onmin.after)) {
+          winform.event.onmin.after(xdWindow, winform);
+        }
+      }
+    };
+    // 销毁
+    destroy(id: string) {
+      let that = this,
+        windowId = "xdwin-" + id,
+        xdWindow = document.getElementById(windowId),
         layxShade = document.getElementById(windowId + '-shade'),
         winform = that.windows[id];
-      if (layxWindow && winform) {
+      if (xdWindow && winform) {
         // 更新层级别
         that.updateZIndex(id);
 
         // 绑定关闭之前事件
-        if (Utils.isFunction(winform.event.ondestroy.before)) {
-          let revel = winform.event.ondestroy.before(layxWindow: any, winform: any);
+        if (Utils.Util.isFunction(winform.event.ondestroy.before)) {
+          let revel = winform.event.ondestroy.before(xdWindow, winform);
           if (revel === false) {
             return;
           }
@@ -1371,7 +1062,7 @@ namespace xdwin {
         if (winform.closable !== true) return;
 
         delete that.windows[id];
-        layxWindow.parentNode.removeChild(layxWindow);
+        xdWindow.parentNode.removeChild(xdWindow);
 
         if (layxShade) {
           layxShade.parentNode.removeChild(layxShade);
@@ -1381,7 +1072,7 @@ namespace xdwin {
         that.updateMinLayout();
 
         // 关闭之后事件
-        if (Utils.isFunction(winform.event.ondestroy.after)) {
+        if (Utils.Util.isFunction(winform.event.ondestroy.after)) {
           winform.event.ondestroy.after();
         }
         for (let key in winform) {
@@ -1389,334 +1080,220 @@ namespace xdwin {
         }
         winform = undefined;
       }
-    },
-    // 关闭所有窗口
-    destroyAll: function () {
-      let that = this;
-      for (let id in Layx.windows) {
-        that.destroy(id);
-      }
-    },
-    // 闪烁窗口
-    flicker: function (id) {
-      let that = this,
-        flicker,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
-        winform = that.windows[id];
-      if (layxWindow && winform) {
-        // 更新层级别
-        that.updateZIndex(id);
+    };
+  }
 
-        if (layxWindow.classList.contains('layx-flicker')) {
-          layxWindow.classList.remove('layx-flicker');
-        }
-        layxWindow.classList.add('layx-flicker');
-
-        filcker = setTimeout(function () {
-          layxWindow.classList.remove('layx-flicker');
-          clearTimeout(filcker);
-        }, 120 * 8);
-      }
-    },
-    // 设置窗口位置
-    setPosition: function (id, position) {
-      let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
-        winform = that.windows[id];
-      if (layxWindow && winform) {
-        let _position = that.compileLayxPosition(position);
-        winform.area.left = _position.left;
-        winform.area.top = _position.top;
-        layxWindow.style.left = _position.left + "px";
-        layxWindow.style.top = _position.top + "px";
-      }
-    },
-    // 获取子框架window对象
-    getChildContext: function (id) {
-      let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
-        winform = that.windows[id],
-        iframeWindow = null;
-      if (layxWindow && winform && winform.type === "url") {
-        let iframe = layxWindow.querySelector(".layx-iframe");
-        if (iframe) {
-          try {
-            iframeWindow = iframe.contentWindow;
-          } catch (e) { }
-        }
-      }
-      return iframeWindow;
-    },
-    // 获取父框架window对象
-    getParentContext: function (id) {
-      let that = this;
-      let iframeWindow = that.getChildContext(id);
-      if (iframeWindow) {
-        return iframeWindow.parent;
-      }
-      else {
-        return null;
-      }
-    },
-    // ================ 内置组件
-    // 创建layx按钮
-    createLayxButtons: function (buttons, id, isPrompt) {
-      let that = this;
-
-      let buttonPanel = document.createElement("div");
-      buttonPanel.classList.add("layx-buttons");
-      for (let i = 0; i < buttons.length; i++) {
-        let buttonItem = document.createElement("button");
-        let buttonConfig = layxDeepClone({}, that.defaultButtons, buttons[i]);
-        buttonItem.classList.add("layx-button-item");
-        buttonItem.innerText = buttonConfig.label;
-        buttonItem.callback = buttons[i].callback;
-        buttonItem.onclick = function (e) {
-          if (Utils.isFunction(this.callback)) {
-            if (isPrompt === true) {
-              let textarea = that.getPromptTextArea(id);
-              this.callback(id, (textarea ? textarea.value : "").replace(/(^\s*)|(\s*$)/g, ""), textarea);
-            }
-            else {
-              this.callback(id);
-            }
-          }
-        }
-        buttonPanel.appendChild(buttonItem);
-      }
-
-      return buttonPanel;
-    },
-    // 消息框
-    msg: function (msg, options) {
-      let that = this;
-      let winform = that.create(layxDeepClone({}, {
-        id: 'layx-msg-' + Utils.rndNum(8),
-        type: 'html',
-        control: false,
-        content: "<div class='layx-msg layx-flexbox layx-flex-center' style='height:83px;width:100%;'>" + msg + "</div>",
-        autodestroy: 5000,
-        width: 320,
-        height: 85,
-        minHeight: 85,
-        stickMenu: false,
-        minMenu: false,
-        maxMenu: false,
-        closeMenu: false,
-        alwaysOnTop: true,
-        resizable: false,
-        movable: false,
-        allowControlDbclick: false,
-        position: [10, 'tc'],
-        autodestroyText: false,
-      }, that.options));
-
-      //that.flicker(winform.id);
-      return winform;
-    },
-    // 提示框
-    alert: function (title, msg, yes, options) {
-      let that = this;
-
-      let winform = that.create(layxDeepClone({}, {
-        id: 'layx-alert-' + Utils.rndNum(8),
-        title: title || "提示消息",
-        icon: false,
-        type: 'html',
-        content: "<div class='layx-alert layx-flexbox layx-flex-center'>" + msg + "</div>",
-        width: 352,
-        height: 157,
-        minHeight: 157,
-        stickMenu: false,
-        minMenu: false,
-        minable: false,
-        maxMenu: false,
-        maxable: false,
-        alwaysOnTop: true,
-        resizable: false,
-        allowControlDbclick: false,
-        shadable: true,
-        statusBar: true,
-        buttons: [
-          {
-            label: '确定',
-            callback: function (id) {
-              if (Utils.isFunction(yes)) {
-                yes(id);
-              }
-              else {
-                Layx.destroy(id);
-              }
-            }
-          }],
-        position: 'ct',
-      }, that.options));
-
-      //that.flicker(winform.id);
-      return winform;
-    },
-    // 询问框
-    confirm: function (title, msg, yes, options) {
-      let that = this;
-
-      let winform = that.create(layxDeepClone({}, {
-        id: 'layx-confirm-' + Utils.rndNum(8),
-        title: title || "询问消息",
-        icon: false,
-        type: 'html',
-        content: "<div class='layx-confirm layx-flexbox layx-flex-center'>" + msg + "</div>",
-        width: 352,
-        height: 157,
-        minHeight: 157,
-        stickMenu: false,
-        minMenu: false,
-        minable: false,
-        maxMenu: false,
-        maxable: false,
-        alwaysOnTop: true,
-        resizable: false,
-        allowControlDbclick: false,
-        shadable: true,
-        buttons: [
-          {
-            label: '确定',
-            callback: function (id) {
-              if (Utils.isFunction(yes)) {
-                yes(id);
-              }
-            }
-          },
-          {
-            label: '取消',
-            callback: function (id) {
-              Layx.destroy(id);
-            }
-          }
-        ],
-        statusBar: true,
-        position: 'ct',
-      }, that.options));
-
-      //that.flicker(winform.id);
-      return winform;
-    },
-    // 获取prompt输入框对象
-    getPromptTextArea: function (id) {
-      let that = this,
-        windowId = "layx-" + id,
-        layxWindow = document.getElementById(windowId),
-        winform = that.windows[id];
-      if (layxWindow && winform && winform.type === "html") {
-        let promptPanel = layxWindow.querySelector(".layx-prompt");
-        if (promptPanel) {
-          let textarea = promptPanel.querySelector(".layx-textarea");
-          if (textarea) {
-            return textarea;
-          }
-        }
-      }
-      return null;
-    },
-    // 输入框
-    prompt: function (title, msg, yes, options) {
-      let that = this;
-
-      let winform = that.create(layxDeepClone({}, {
-        id: 'layx-prompt-' + Utils.rndNum(8),
-        title: title || "请输入信息",
-        icon: false,
-        type: 'html',
-        content: "<div class='layx-prompt'><label>" + msg + "</label><textarea class='layx-textarea'></textarea></div>",
-        width: 352,
-        height: 200,
-        minHeight: 200,
-        stickMenu: false,
-        minMenu: false,
-        minable: false,
-        maxMenu: false,
-        maxable: false,
-        alwaysOnTop: true,
-        resizable: false,
-        allowControlDbclick: false,
-        shadable: true,
-        statusBar: true,
-        isPrompt: true,
-        buttons: [
-          {
-            label: '确定',
-            callback: function (id, value, textarea) {
-              if (textarea && value.length === 0) {
-                textarea.focus();
-              }
-              else {
-                if (Utils.isFunction(yes)) {
-                  yes(id, value, textarea);
-                }
-              }
-            }
-          },
-          {
-            label: '取消',
-            callback: function (id, value, textarea) {
-              Layx.destroy(id);
-            }
-          }
-        ],
-        position: 'ct',
-      }, that.options));
-
-      //that.flicker(winform.id);
-      return winform;
-    },
-    // 加载框
-    load: function (id, msg, options) {
-      let that = this;
-      let loadElement = document.createElement("div");
-      loadElement.classList.add("layx-load");
-      loadElement.classList.add("layx-flexbox");
-      loadElement.classList.add("layx-flex-center");
-      loadElement.style.height = 83 + "px";
-      loadElement.style.width = "100%";
-      loadElement.innerHTML = msg;
-
-      let dotCount = 0;
-      let loadTimer = setInterval(function () {
-        if (dotCount === 5) {
-          dotCount = 0;
-        }
-        ++dotCount;
-        let dotHtml = "";
-        for (let i = 0; i < dotCount; i++) {
-          dotHtml += ".";
-        }
-        loadElement.innerHTML = msg + dotHtml;
-      }, 200);
-
-      let winform = that.create(layxDeepClone({}, {
-        id: id ? id : 'layx-load-' + Utils.rndNum(8),
-        type: 'html',
-        control: false,
-        shadable: true,
-        content: loadElement,
-        width: 320,
-        height: 85,
-        minHeight: 85,
-        stickMenu: false,
-        minMenu: false,
-        maxMenu: false,
-        closeMenu: false,
-        alwaysOnTop: true,
-        resizable: false,
-        movable: false,
-        allowControlDbclick: false,
-        position: 'ct',
-      }, that.options));
-
-      //that.flicker(winform.id);
-      return winform;
+  class XdwinDrag extends XdMain {
+    constructor() {
+      super()
     }
-  };
+  }
+
+  class XdwinResize extends XdMain {
+
+    private isResizing: any;
+    private isFirstResizing: any;
+    private handle: any;
+    private isTop: any;
+    private isLeft: any;
+    private lockX: any;
+    private lockY: any;
+
+    constructor(handle: any, isTop: any, isLeft: any, lockX: any, lockY: any) {
+      super()
+      this.handle = handle;
+      this.isTop = isTop;
+      this.isLeft = isLeft;
+      this.lockX = lockX;
+      this.lockY = lockY;
+      // 移动标识
+      this.isResizing = false;
+
+      // 判断是否第一次拖曳
+      this.isFirstResizing = true;
+    }
+
+    private drag(e: any) {
+      e = e || window.event;
+      // 只允许鼠标左键拖曳
+      let button = e.button || e.which;
+      if (button == 1 && e.shiftKey == false) {
+        let moveMouseCoord = Utils.Util.getMousePosition(e),
+          distX = moveMouseCoord.x - this.handle.mouseStartCoord.x,
+          distY = moveMouseCoord.y - this.handle.mouseStartCoord.y,
+          _top = this.handle.winform.area.top + distY,
+          _left = this.handle.winform.area.left + distX,
+          _height = this.isTop ? this.handle.winform.area.height - distY : this.handle.winform.area.height + distY,
+          _width = this.isLeft ? this.handle.winform.area.width - distX : this.handle.winform.area.width + distX;
+        // 是否有任何移动操作
+        if (distX !== 0 || distY !== 0) {
+          this.isResizing = true;
+          // 隐藏滚动条
+          document.body.classList.add('xdwin-body');
+
+          if (this.isFirstResizing === true) {
+            this.isFirstResizing = false;
+
+            // 绑定拖曳之前事件
+            if (Utils.Util.isFunction(this.handle.winform.event.onresize.before)) {
+              let reval = this.handle.winform.event.onresize.before(this.handle.layxWindow, this.handle.winform);
+              if (reval === false) {
+                this.isResizing = false;
+                this.isFirstResizing = true;
+                document.onmouseup = null;
+                document.onmousemove = null;
+                return;
+              }
+            }
+          }
+          // 限制最小宽度
+          _width = Math.max(_width, this.handle.winform.area.minWidth);
+          // 显示最小最大左边距
+          if (this.isLeft) {
+            _left = Math.min(_left, this.handle.winform.area.left + this.handle.winform.area.width - this.handle.winform.area.minWidth);
+            _left = Math.max(0, _left);
+
+            _width = Math.min(_width, this.handle.winform.area.left + this.handle.winform.area.width);
+          } else {
+            _left = Math.min(_left, this.handle.winform.area.left);
+            _left = Math.max(this.handle.winform.area.left, _left);
+
+            _width = Math.min(_width, this.handle.innerArea.width - this.handle.winform.area.left);
+          }
+          // 限制最小高度
+          _height = Math.max(_height, this.handle.winform.area.minHeight);
+          // 显示最小最大上边距
+          if (this.isTop) {
+            _top = Math.min(_top, this.handle.winform.area.top + this.handle.winform.area.height - this.handle.winform.area.minHeight);
+            _top = Math.max(0, _top);
+
+            _height = Math.min(_height, this.handle.winform.area.top + this.handle.winform.area.height);
+          } else {
+            _top = Math.min(_top, this.handle.winform.area.top);
+            _top = Math.max(this.handle.winform.area.top, _top);
+
+            _height = Math.min(_height, this.handle.innerArea.height - this.handle.winform.area.top);
+          }
+          // 是否锁住Y轴
+          if (this.lockY) {
+            this.handle.layxWindow.style.width = _width + 'px';
+            this.handle.layxWindow.style.left = _left + 'px';
+          }
+          // 是否锁住X轴
+          if (this.lockX) {
+            this.handle.layxWindow.style.top = _top + 'px';
+            this.handle.layxWindow.style.height = _height + 'px';
+          }
+          if (this.lockY === false && this.lockX === false) {
+            this.handle.layxWindow.style.width = _width + 'px';
+            this.handle.layxWindow.style.left = _left + 'px';
+            this.handle.layxWindow.style.top = _top + 'px';
+            this.handle.layxWindow.style.height = _height + 'px';
+          }
+
+          // 绑定拖曳中事件
+          if (Utils.Util.isFunction(this.handle.winform.event.onresize.progress)) {
+            this.handle.winform.event.onresize.progress(this.handle.layxWindow, this.handle.winform);
+          }
+        }
+      }
+    }
+
+    dragstart(e: any) {
+      e = e || window.event;
+
+      let xdwinWindow = Utils.Util.getNodeByClassName(this.handle, 'xdwin-window', this.win);
+      if (xdwinWindow) {
+        let id = xdwinWindow.getAttribute("id").substr(5),
+          winform = conf.windows[id];
+        if (winform) {
+          // 最小化不允许拖曳
+          if (winform.status !== "min" && winform.resizable === true) {
+            // 创建全局遮罩层
+            let xdwinMove = document.getElementById("xdwin-window-move");
+            if (!xdwinMove) {
+              xdwinMove = document.createElement("div");
+              xdwinMove.setAttribute("id", "xdwin-window-move");
+              document.body.appendChild(xdwinMove);
+            }
+            // 更新层级别
+            this.updateZIndex(id);
+            xdwinMove.style.zIndex = String(winform.zIndex - 1);
+
+            // 获取鼠标点击坐标
+            let mouseCoord = Utils.Util.getMousePosition(e);
+            // 存储一开始的坐标
+            this.handle.mouseStartCoord = mouseCoord;
+            // 存储xdwinWindow Dom对象
+            this.handle.xdwinWindow = xdwinWindow;
+            // 存储winform对象
+            this.handle.winform = winform;
+            // 存储浏览器可视区域信息
+            this.handle.innerArea = Utils.Util.innerArea();
+            // 禁止浏览器默认事件
+            e.preventDefault();
+            // 禁止冒泡
+            e.stopPropagation();
+
+            let mousePreventDefault = xdwinWindow.querySelector(".xdwin-mouse-preventDefault");
+            if (!mousePreventDefault) {
+              // 解决鼠标拖出目标容器bug
+              mousePreventDefault = document.createElement("div");
+              mousePreventDefault.classList.add("xdwin-mouse-preventDefault");
+              let main = xdwinWindow.querySelector(".xdwin-main");
+              if (main) {
+                main.appendChild(mousePreventDefault);
+              }
+            }
+
+            document.onmouseup = this.dragend;
+            document.onmousemove = this.drag;
+          }
+          else {
+            this.restore(id);
+          }
+        }
+      }
+      return false;
+    };
+
+    dragend(e: any) {
+      e = e || window.event;
+      document.onmouseup = null;
+      document.onmousemove = null;
+      // 移除鼠标拖动遮罩层
+      let mousePreventDefault = this.handle.layxWindow.querySelector(".xdwin-mouse-preventDefault");
+      if (mousePreventDefault) {
+        mousePreventDefault.parentNode.removeChild(mousePreventDefault);
+      }
+
+      let layxMove = document.getElementById("xdwin-window-move");
+      if (layxMove) {
+        layxMove.parentNode.removeChild(layxMove);
+      }
+
+      // 只有发生移动才触发
+      if (this.isResizing === true) {
+        this.isResizing = false;
+        this.isFirstResizing = true;
+
+
+        // 更新窗口位置信息
+        this.handle.winform.area.top = this.handle.layxWindow.offsetTop;
+        this.handle.winform.area.left = this.handle.layxWindow.offsetLeft;
+        this.handle.winform.area.width = this.handle.layxWindow.offsetWidth;
+        this.handle.winform.area.height = this.handle.layxWindow.offsetHeight;
+
+        // 恢复滚动条
+        if (document.body.classList.contains("xdwin-body")) {
+          document.body.classList.remove('xdwin-body');
+        }
+
+        // 绑定拖曳之后事件
+        if (Utils.Util.isFunction(this.handle.winform.event.onresize.after)) {
+          this.handle.winform.event.onresize.after(this.handle.layxWindow, this.handle.winform);
+        }
+      }
+    };
+  }
 }

@@ -1,3 +1,5 @@
-export function sayHello(name: string) {
-    return `Hello from ${name}`;
+namespace xdwin {
+    export function sayHello(name: string) {
+        return `Hello from ${name}`;
+    }
 }

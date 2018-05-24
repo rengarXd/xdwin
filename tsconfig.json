@@ -1,7 +1,8 @@
 {
     "files": [
         "src/main.ts",
-        "src/greet.ts"
+        "src/config.ts",
+        "src/Utils.ts"
     ],
     "exclude": [
         "node_modules",
